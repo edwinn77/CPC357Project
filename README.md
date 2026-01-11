@@ -17,15 +17,7 @@ BusWatch is an end-to-end IoT pipeline that:
 
 ## System architecture (high level)
 
-```mermaid
-flowchart LR
-  A[Maker Feather AIoT S3\n(IR sensors + buttons)] -->|HTTPS POST (JSON)| B[Cloud Run\nPython: functions_framework]
-  B -->|Publish JSON| C[Pub/Sub Topic]
-  C -->|Streaming pipeline| D[Dataflow]
-  D --> E[BigQuery]
-  E --> F[Looker Studio Dashboard]
-  E --> G[AppSheet (optional)]
-```
+![BusWatch system architecture (Sensors → Microcontroller → GCP → Looker Studio/AppSheet)](System%20Architecture.png)
 
 ### What data flows through the system
 - **Edge device → Cloud Run (HTTP)**: passenger count + event + route + stop
@@ -52,6 +44,9 @@ flowchart LR
 | Button 2 | Next route (only when bus empty) | `btnRoute = 38` |
 
 > If your wiring uses different pins (or you swapped Entrance/Exit sensors), update the pin constants in `project.cpp`.
+
+### Real IoT setup (prototype)
+![Real hardware prototype setup (IR sensors + buttons + Maker Feather AIoT S3)](Real_IoT%20Setup.png)
 
 ### Route + stop list (current firmware)
 - **Route A**: USM Gate → Subway → Queensbay → Sungai Nibong
